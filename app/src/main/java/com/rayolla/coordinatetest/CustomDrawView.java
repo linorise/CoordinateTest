@@ -14,11 +14,10 @@ import android.view.View;
 public class CustomDrawView extends View {
     private static final String TAG = "CoordinateTest_CustomDrawView";
     private static final int DEFAULT_LINE_INTERVAL = 30;
-    private static final int START_X = 20;
-    private static final int START_Y = 20;
+    private static final int START_X = 30;
+    private static final int START_Y = 30;
     private int mWidth_X;
     private int mHeight_Y;
-    private int mLineNumber = 50;
     private int mXNum = 50;   // number to draw from X to Y
     private int mYNum = 46;   // number to draw from Y to X
 
@@ -129,7 +128,6 @@ public class CustomDrawView extends View {
                 paint.setColor(Color.RED);
             }
 
-//            Log.d(TAG, startX + (i*DEFAULT_LINE_INTERVAL)+ "   " + startY + "   " + stopX + (i*DEFAULT_LINE_INTERVAL) + "   " + stopY);
             Log.d(TAG, String.format("%d   %d   %d   %d", startX + (i*DEFAULT_LINE_INTERVAL), startY, stopX + (i*DEFAULT_LINE_INTERVAL), stopY));
             canvas.drawLine(startX + (i*DEFAULT_LINE_INTERVAL), startY, stopX + (i*DEFAULT_LINE_INTERVAL), stopY, paint);
         }
@@ -137,6 +135,7 @@ public class CustomDrawView extends View {
 
     private void drawY(Canvas canvas) {
         Paint paint = new Paint();
+        PathEffect pathEffect = new DashPathEffect(new float[]{10, 5}, 0);
 
         int startX = START_X;
         int startY = START_Y;
@@ -154,9 +153,25 @@ public class CustomDrawView extends View {
 
             paint.setStrokeWidth(2);
             paint.setColor(Color.BLACK);
+            paint.setPathEffect(null);
+
+            if (count != 0) {
+                if (count%10 != 0 && count%5 == 0) {
+                    dot = true;
+                }
+
+                if (count%10 == 0) {
+                    thick = true;
+                }
+            }
 
             if (count != 0 && count%10 == 0) {
                 thick = true;
+            }
+
+            if (dot) {
+                paint.setStrokeWidth(3);
+                paint.setPathEffect(pathEffect);
             }
 
             if (thick) {
@@ -164,7 +179,6 @@ public class CustomDrawView extends View {
                 paint.setColor(Color.BLUE);
             }
 
-//            Log.d(TAG, startX + "   " + startY + (i*DEFAULT_LINE_INTERVAL) + "   " + stopX + "   " + stopY + (i*DEFAULT_LINE_INTERVAL));
             Log.d(TAG, String.format("%d   %d   %d   %d", startX, startY + (i*DEFAULT_LINE_INTERVAL), stopX, stopY + (i*DEFAULT_LINE_INTERVAL)));
             canvas.drawLine(startX, startY + (i*DEFAULT_LINE_INTERVAL), stopX, stopY + (i*DEFAULT_LINE_INTERVAL), paint);
 
