@@ -130,28 +130,20 @@ public class CustomDrawView extends View {
 
         int startX = START_X;
         int startY = START_Y;
-//        int stopX = 3100;
         int stopX = mWidth_X - 30;
         int stopY = START_Y;
         int i;
+        int count = 0;
 
-        for (i=0; i<mYNum; i++) {
-//        for (i=mYNum; i>0; i--) {
+        for (i=mYNum-1; i>=0; i--) {
             boolean dot = false;
             boolean thick = false;
 
             paint.setStrokeWidth(2);
             paint.setColor(Color.BLACK);
 
-            if (i != 0) {
-                if (i%10 != 0 && i%5 == 0) {
-                    Log.d(TAG, "i: " + i);
-                    dot = true;
-                }
-
-                if (i%10 == 0) {
-                    thick = true;
-                }
+            if (count != 0 && count%10 == 0) {
+                thick = true;
             }
 
             if (thick) {
@@ -160,8 +152,8 @@ public class CustomDrawView extends View {
             }
 
             canvas.drawLine(startX, startY + (i*DEFAULT_LINE_INTERVAL), stopX, stopY + (i*DEFAULT_LINE_INTERVAL), paint);
+
+            count++;
         }
-        // Last line
-//        canvas.drawLine(startX, startY + (i*DEFAULT_LINE_INTERVAL), stopX, stopY + (i*DEFAULT_LINE_INTERVAL), paint);
     }
 }
