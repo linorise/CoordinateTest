@@ -14,13 +14,14 @@ import android.view.View;
 public class CustomDrawView extends View {
     private static final String TAG = "CoordinateTest_CustomDrawView";
     private static final int DEFAULT_LINE_INTERVAL = 30;
-    private static final int START_X = 140;
+    private static final int START_X = 60;
     private static final int START_Y = 60;
     private int mWidth_X;
     private int mHeight_Y;
     private int mLineNumber = 50;
     private int mXNum = 50;
     private int mYNum = 46;
+//    private int mYNum = 10;
     public CustomDrawView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
@@ -87,14 +88,11 @@ public class CustomDrawView extends View {
         int startX = START_X;
         int startY = START_Y;
         int stopX = START_X;
-//        int stopY = 1200;
-//        int stopY = mHeight_Y - 30;
-        int stopY = mXNum*DEFAULT_LINE_INTERVAL - 30;
-
-//        paint.setStrokeWidth(2);
-//        paint.setColor(Color.BLACK);
+//        int stopY = mXNum*DEFAULT_LINE_INTERVAL;
+        int stopY = (mYNum+1)*DEFAULT_LINE_INTERVAL;
 
         for (int i=0; i<mXNum; i++) {
+//        for (int i=mXNum; i>0; i--) {
             boolean dot = false;
             boolean thick = false;
 
@@ -112,10 +110,6 @@ public class CustomDrawView extends View {
                     thick = true;
                 }
             }
-
-//            if (i == lineNumber-1) {
-//                paint.setColor(Color.RED);
-//            }
 
             if (dot) {
                 paint.setStrokeWidth(3);
@@ -139,11 +133,10 @@ public class CustomDrawView extends View {
 //        int stopX = 3100;
         int stopX = mWidth_X - 30;
         int stopY = START_Y;
+        int i;
 
-//        paint.setStrokeWidth(2);
-//        paint.setColor(Color.BLACK);
-
-        for (int i=0; i<mYNum; i++) {
+        for (i=0; i<mYNum; i++) {
+//        for (i=mYNum; i>0; i--) {
             boolean dot = false;
             boolean thick = false;
 
@@ -168,5 +161,7 @@ public class CustomDrawView extends View {
 
             canvas.drawLine(startX, startY + (i*DEFAULT_LINE_INTERVAL), stopX, stopY + (i*DEFAULT_LINE_INTERVAL), paint);
         }
+        // Last line
+//        canvas.drawLine(startX, startY + (i*DEFAULT_LINE_INTERVAL), stopX, stopY + (i*DEFAULT_LINE_INTERVAL), paint);
     }
 }
